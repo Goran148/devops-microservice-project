@@ -47,8 +47,8 @@ jobs:
                 context: ./backend
                 push: ${{ github.ref == 'refs/heads/main' }}
                 tags: |
-                  ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest
-                  ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:${{ github.sha }}
+                  ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}:latest
+                  ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}:${{ github.sha }}
 
             # 6. Build and Push za Fronted
             - name: Build and Push Fronted Image
@@ -57,5 +57,5 @@ jobs:
                 context: ./fronted
                 push: ${{ github.ref == 'refs/heads/main' }}
                 tags: |
-                  ${{ env.REGISTRY }}/${{ env.FRONTED_IMAGE_NAME }}:latest
-                  ${{ env.REGISTRY }}/${{ env.FRONTED_IMAGE_NAME }}:${{ github.sha }}
+                  ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}:latest
+                  ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}:${{ github.sha }}
