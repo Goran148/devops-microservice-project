@@ -1,0 +1,11 @@
+# node dependencies
+fronted/node_modules/
+fronted/build/
+# python dependencies and cache
+backend/__pycache__/
+*.pyc
+.venv/
+# Environment variables and secrets
+.env
+#Docker data volumes
+postgres_data/
