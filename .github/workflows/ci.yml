@@ -26,7 +26,7 @@ jobs:
             # 2. Pretvaranje imena repoyitorija u mala slova lowercase
             - name: Lowercase repository name
               run: |
-               echo "REPO_LOSER=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+               echo "REPO_LOWER=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
             # 3. Login na Github container registry GHCR
             - name: Log in to GHCR
