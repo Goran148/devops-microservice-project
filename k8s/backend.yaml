@@ -17,6 +17,7 @@ spec:
       containers:
         - name: backend
           image: ghcr.io/goran148/devops-microservice-project/backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
 ---
@@ -31,3 +32,4 @@ spec:
   ports:
     - port: 5000
       targetPort: 5000
+      nodePort: 30000

@@ -17,6 +17,7 @@ spec:
       containers:
         - name: fronted
           image: ghcr.io/goran148/devops-microservice-project/frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---
