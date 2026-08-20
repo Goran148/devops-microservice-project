@@ -9,3 +9,11 @@ backend/__pycache__/
 .env
 #Docker data volumes
 postgres_data/
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+*.tfvars
+*.tfvars.json
+backend.yaml
+frontend.yaml
