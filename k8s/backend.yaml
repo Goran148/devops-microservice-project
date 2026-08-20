@@ -19,7 +19,7 @@ spec:
           image: ghcr.io/goran148/devops-microservice-project/backend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 5000
+            - containerPort: 8000
 ---
 apiVersion: v1
 kind: Service
@@ -31,5 +31,5 @@ spec:
     app: backend
   ports:
     - port: 5000
-      targetPort: 5000
+      targetPort: 8000
       nodePort: 30000
