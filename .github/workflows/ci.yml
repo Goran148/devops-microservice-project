@@ -48,12 +48,12 @@ jobs:
                   ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/backend:latest
                   ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/backend:${{ github.sha }}
 
-            # 6. Build and Push za Fronted
-            - name: Build and Push Fronted Image
+            # 6. Build and Push za Frontend
+            - name: Build and Push Frontend Image
               uses: docker/build-push-action@v5
               with:
-                context: ./fronted
+                context: ./frontend
                 push: ${{ github.ref == 'refs/heads/main' }}
                 tags: |
-                  ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/fronted:latest
-                  ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/fronted:${{ github.sha }}
+                  ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/frontend:latest
+                  ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/frontend:${{ github.sha }}
