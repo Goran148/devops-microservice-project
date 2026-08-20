@@ -15,5 +15,3 @@ postgres_data/
 .terraform.lock.hcl
 *.tfvars
 *.tfvars.json
-backend.yaml
-frontend.yaml
