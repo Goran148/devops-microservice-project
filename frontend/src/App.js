@@ -5,7 +5,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [views, setViews] = useState(0);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+  const API_URL = 'http://18.199.67.93:30001'
 
   const fetchTasks = () => {
     fetch(`${API_URL}/tasks`)
