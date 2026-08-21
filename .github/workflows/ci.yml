@@ -21,7 +21,7 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
-            # 2. Pretvaranje imena repoyitorija u mala slova lowercase
+            # 2. Pretvaranje imena repozitorija u mala slova lowercase
             - name: Lowercase repository name
               run: |
                echo "REPO_LOWER=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV

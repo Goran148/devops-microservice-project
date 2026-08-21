@@ -7,5 +7,5 @@ variable "aws_region" {
 variable "instance_type" {
   description = "Tip EC2 instance"
   type        = string
-  default     = "t3.small"
+  default     = "c7i-flex.large"
 }

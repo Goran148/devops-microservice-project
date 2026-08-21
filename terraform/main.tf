@@ -1,10 +1,10 @@
 # Definisemo aws_ami image da bi dobili pravu ami verziju za region
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners = ["099720109477"]
+  owners      = ["099720109477"]
 
   filter {
-    name = "name"
+    name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
 }
@@ -96,7 +96,7 @@ resource "aws_security_group" "devops_sg" {
 }
 
 resource "aws_key_pair" "devops_key" {
-  key_name = "devops_key"
+  key_name   = "devops_key"
   public_key = file("~/.ssh/devops-key.pub")
 }
 
@@ -106,7 +106,7 @@ resource "aws_instance" "devops-server" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.devops_sg.id]
-  key_name = aws_key_pair.devops_key.key_name
+  key_name               = aws_key_pair.devops_key.key_name
 
   user_data = <<-EOF
                #!/bin/bash
@@ -115,7 +115,29 @@ resource "aws_instance" "devops-server" {
                sudo systemctl start docker
                sudo systemctl enable docker
                sudo usermod -aG docker ubuntu
+
+               curl -sfL https://get.k3s.io | sh -
+
+               mkdir -p /home/ubuntu/.kube
+               cp /etc/rancher/k3s/k3s.yaml /home/ubuntu/.kube/config
+               chown -R ubuntu:ubuntu /home/ubuntu/.kube
+               chmod 644 /etc/rancher/k3s/k3s.yaml
+
+               until /usr/local/bin/kubectl get nodes | grep -q "Ready"; do
+                sleep 5
+               done
+
+               /usr/local/bin/kubectl create namespace argocd
+               /usr/local/bin/kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+               /usr/local/bin/kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort", "ports": [{"port": 80, "targetPort": 8080, "nodePort": 30080}]}}'
                EOF
+
+  # 1. Update paketa i instalacija docker-a
+  # 2. Instalacija k3s-a
+  # 3. Podesavanje dozvola za kubectl za ubuntu korisnika
+  # 4. instalacija ArgoCD-a
+  # 5. izlaganje ArgoCD-a na NodePort 30080
 
   tags = {
     Name = "devops-k8s-node"
